@@ -2,12 +2,13 @@ import pytest
 
 from llm_multiple_choice import (
     ChoiceManager,
+    ChoiceSection,
     ChoiceCode,
     ChoiceCodeSet,
-    format_choice_codes,
     DisplayFormat,
     DuplicateChoiceError,
-    InvalidChoiceCodeError
+    InvalidChoiceCodeError,
+    format_choice_codes,
 )
 
 
@@ -113,9 +114,11 @@ def test_choice_code_set_iteration() -> None:
 def test_choice_code_set_immutability() -> None:
     code_set = ChoiceCodeSet()
     code_set.add(ChoiceCode(1))
-    
+
     frozen_set = code_set.codes
     assert isinstance(frozen_set, frozenset)
-    
+
+    # Attempt to modify the frozenset and verify that it raises an error
     with pytest.raises(AttributeError):
-        frozen_set.add(ChoiceCode(2))
+        # Since 'add' is not an attribute of frozenset, trying to access it will raise AttributeError
+        getattr(frozen_set, 'add')(ChoiceCode(2))
