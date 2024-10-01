@@ -3,13 +3,12 @@ import pytest
 from llm_multiple_choice import (
     ChoiceManager,
     ChoiceSection,
-    ChoiceCode,
-    ChoiceCodeSet,
     DisplayFormat,
     DuplicateChoiceError,
     InvalidChoiceCodeError,
     format_choice_codes,
 )
+from llm_multiple_choice.choice_code import ChoiceCode, ChoiceCodeSet
 
 
 def test_choice_manager() -> None:
