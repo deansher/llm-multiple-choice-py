@@ -17,6 +17,12 @@ You can install the library using pip:
 pip install llm-multiple-choice
 ```
 
+If you're using Poetry:
+
+```bash
+poetry add llm-multiple-choice
+```
+
 ## Usage
 
 Here's a basic example of how to use the library:
