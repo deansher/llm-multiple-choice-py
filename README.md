@@ -1,13 +1,12 @@
 # LLM Multiple Choice
 
-A Python library for using Large Language Models (LLMs) to fill out multiple-choice questionnaires about chat conversations.
+A Python library for having an LLM fill out a multiple-choice questionnaire about the current state of a chat.
 
 ## Features
 
-- Integrate with various LLM providers
-- Process chat conversations
-- Generate responses for multiple-choice questions
-- Customizable question formats and answer options
+- Composible with any LLM provider -- this library does not call the LLM itself.
+- Flexible questionnaire structure.
+- Simple API for using the questionnaire results in code.
 
 ## Installation
 
@@ -35,31 +34,43 @@ analyzer = ChatAnalyzer()
 
 # Load a chat conversation
 chat = [
+    {"role": "system" , "content": "You are a helpful assistant."},
     {"role": "user", "content": "Hello, how are you?"},
     {"role": "assistant", "content": "I'm doing well, thank you! How can I assist you today?"},
     {"role": "user", "content": "I'd like to know more about Python programming."},
-    {"role": "assistant", "content": "Certainly! Python is a versatile and popular programming language..."}
 ]
 
 # Define a multiple-choice question
-question = {
-    "text": "What topic did the user express interest in?",
-    "options": [
-        "A. Java programming",
-        "B. Python programming",
-        "C. Web development",
-        "D. Data science"
-    ]
-}
+
+```
+    # TBD
+```
 
 # Get the answer
-answer = analyzer.analyze(chat, question)
-print(f"The answer is: {answer}")
+
+```
+    # TBD
 ```
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Setting Up for Development
+
+TBD
+
+### Editing in VSCode 
+
+<how to specify the python path>
+
+### Running Tests
+
+TBD
+
+### Adding Dependencies
+
+TBD
 
 ## License
 
