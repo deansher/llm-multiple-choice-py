@@ -32,9 +32,9 @@ def test_choice_manager() -> None:
     assert code2.code == 2
     assert code3.code == 3
 
-    # Display the choices (assuming display returns structured content)
-    display_content = manager.display()
-    assert isinstance(display_content, dict)  # Replace dict with the actual type if different
+    # Display the choices (assuming display returns a string for now)
+    display_content = manager.display(DisplayFormat.MARKDOWN)
+    assert isinstance(display_content, str)
 
 import pytest
 from llm_multiple_choice import (
