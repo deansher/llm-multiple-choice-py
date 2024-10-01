@@ -1,6 +1,7 @@
 from .choice_code import ChoiceCode
 from .display_format import DisplayFormat
 from typing import List
+from .choice_manager import ChoiceManager
 
 class Choice:
     def __init__(self, code: ChoiceCode, description: str):
