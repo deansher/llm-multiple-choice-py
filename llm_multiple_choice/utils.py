@@ -1,4 +1,4 @@
-from .choice_code_set import ChoiceCodeSet
+from llm_multiple_choice.choice_code import ChoiceCodeSet
 
 
 def format_choice_codes(code_set: ChoiceCodeSet) -> str:

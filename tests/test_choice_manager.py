@@ -44,6 +44,7 @@ def test_choice_manager() -> None:
     assert "**2**: The message is neutral in sentiment." in display_content
     assert "**3**: The message expresses negative sentiment." in display_content
 
+
 def test_choice_code_set() -> None:
     # Create a set of choice codes
     code_set = ChoiceCodeSet()
@@ -71,12 +72,14 @@ def test_choice_code_set() -> None:
     formatted_codes = format_choice_codes(code_set)
     assert formatted_codes == "1, 2, 3"
 
+
 def test_add_duplicate_choice() -> None:
     code_set = ChoiceCodeSet()
     code = ChoiceCode(1)
     code_set.add(code)
     with pytest.raises(DuplicateChoiceError):
         code_set.add(code)
+
 
 def test_invalid_choice_code() -> None:
     manager = ChoiceManager()
@@ -91,19 +94,22 @@ def test_display_empty_section() -> None:
     output = manager.display(DisplayFormat.MARKDOWN)
     assert output == "### Empty Section\n\n"
 
+
 def test_add_choice_empty_description() -> None:
     manager = ChoiceManager()
     section = manager.add_section("Section")
     with pytest.raises(ValueError):
         section.add_choice("")
 
+
 def test_choice_code_set_iteration() -> None:
     code_set = ChoiceCodeSet()
     codes = [ChoiceCode(1), ChoiceCode(2), ChoiceCode(3)]
     for code in codes:
         code_set.add(code)
-    
+
     assert set(code_set) == set(codes)
+
 
 def test_choice_code_set_immutability() -> None:
     code_set = ChoiceCodeSet()
@@ -115,4 +121,4 @@ def test_choice_code_set_immutability() -> None:
     # Attempt to modify the frozenset and verify that it raises an error
     with pytest.raises(AttributeError):
         # Since 'add' is not an attribute of frozenset, trying to access it will raise AttributeError
-        getattr(frozen_set, 'add')(ChoiceCode(2))
+        getattr(frozen_set, "add")(ChoiceCode(2))
