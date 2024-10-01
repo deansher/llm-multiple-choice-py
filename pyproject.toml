@@ -2,7 +2,7 @@
 name = "llm-multiple-choice"
 version = "0.1.0"
 description = "A Python library for using Large Language Models (LLMs) to fill out multiple-choice questionnaires about chat conversations."
-authors = ["Your Name <you@example.com>"]
+authors = ["Dean Thompson <deansherthompson@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
 packages = [{ include = "llm_multiple_choice" }]

@@ -69,7 +69,7 @@ To set up the project for development:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/llm-multiple-choice.git
+   git clone https://github.com/deansher/llm-multiple-choice.git
    ```
 
 2. **Navigate to the project directory**:
@@ -86,13 +86,8 @@ To set up the project for development:
 
    This will install all the required packages in a virtual environment.
 
-4. **Activate the virtual environment**:
-
-   ```bash
-   poetry shell
-   ```
-
-Now you're ready to start developing!
+You can either activate the virtual environment in a shell by running `poetry shell` 
+or run commands directly using `poetry run <command>`.
 
 ### Editing in VSCode
 
@@ -106,21 +101,7 @@ If the virtual environment is not listed, you may need to refresh the interprete
 
 ### Running Tests
 
-To run the tests:
-
-1. Ensure you're in the virtual environment:
-
-   ```bash
-   poetry shell
-   ```
-
-2. Run the tests using pytest:
-
-   ```bash
-   pytest
-   ```
-
-   This will execute all tests located in the `tests/` directory.
+`poetry run pytest`
 
 ### Adding Dependencies
 
