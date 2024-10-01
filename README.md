@@ -42,14 +42,20 @@ chat = [
 
 # Define a multiple-choice question
 
-```
-    # TBD
-```
+# Define a multiple-choice question
+question = {
+    "prompt": "What is the sentiment of the user's last message?",
+    "choices": {
+        "A": "Positive",
+        "B": "Neutral",
+        "C": "Negative"
+    }
+}
 
 # Get the answer
+answer = analyzer.analyze(chat, question)
 
-```
-    # TBD
+print(f"The user's last message sentiment is: {answer}")
 ```
 
 ## Contributing
@@ -58,19 +64,81 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### Setting Up for Development
 
-TBD
+To set up the project for development:
 
-### Editing in VSCode 
+1. **Clone the repository**:
 
-<how to specify the python path>
+   ```bash
+   git clone https://github.com/yourusername/llm-multiple-choice.git
+   ```
+
+2. **Navigate to the project directory**:
+
+   ```bash
+   cd llm-multiple-choice
+   ```
+
+3. **Install dependencies using Poetry**:
+
+   ```bash
+   poetry install
+   ```
+
+   This will install all the required packages in a virtual environment.
+
+4. **Activate the virtual environment**:
+
+   ```bash
+   poetry shell
+   ```
+
+Now you're ready to start developing!
+
+### Editing in VSCode
+
+To ensure VSCode uses the correct Python interpreter from the Poetry environment:
+
+1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac).
+2. Select `Python: Select Interpreter`.
+3. Choose the interpreter that corresponds to the project's virtual environment. It should be listed with the path to `.venv`.
+
+If the virtual environment is not listed, you may need to refresh the interpreters or specify the path manually.
 
 ### Running Tests
 
-TBD
+To run the tests:
+
+1. Ensure you're in the virtual environment:
+
+   ```bash
+   poetry shell
+   ```
+
+2. Run the tests using pytest:
+
+   ```bash
+   pytest
+   ```
+
+   This will execute all tests located in the `tests/` directory.
 
 ### Adding Dependencies
 
-TBD
+To add a new dependency to the project:
+
+- For regular dependencies:
+
+  ```bash
+  poetry add <package_name>
+  ```
+
+- For development dependencies (e.g., testing tools):
+
+  ```bash
+  poetry add --dev <package_name>
+  ```
+
+This updates the `pyproject.toml` and `poetry.lock` files accordingly.
 
 ## License
 
