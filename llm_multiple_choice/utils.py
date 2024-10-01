@@ -1,5 +1,6 @@
 from .choice_code_set import ChoiceCodeSet
 
+
 def format_choice_codes(code_set: ChoiceCodeSet) -> str:
     """
     Format a set of choice codes as a comma-separated string.

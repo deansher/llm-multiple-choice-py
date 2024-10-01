@@ -3,13 +3,15 @@ from .display_format import DisplayFormat
 from typing import List
 from .choice_manager import ChoiceManager
 
+
 class Choice:
     def __init__(self, code: ChoiceCode, description: str):
         self.code = code
         self.description = description
 
+
 class ChoiceSection:
-    def __init__(self, introduction: str, manager: 'ChoiceManager'):
+    def __init__(self, introduction: str, manager: "ChoiceManager"):
         self.introduction = introduction
         self.manager = manager
         self.choices: List[Choice] = []
@@ -53,4 +55,6 @@ class ChoiceSection:
                 markdown_output += f"- **{choice.code.code}**: {choice.description}\n"
             return markdown_output
         else:
-            raise NotImplementedError(f"Display format '{format.value}' is not supported.")
+            raise NotImplementedError(
+                f"Display format '{format.value}' is not supported."
+            )

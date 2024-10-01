@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DisplayFormat(Enum):
-    MARKDOWN = 'markdown'
+    MARKDOWN = "markdown"
     # Future formats can be added here

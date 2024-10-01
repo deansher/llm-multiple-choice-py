@@ -2,6 +2,7 @@ from .exceptions import DuplicateChoiceError
 from .choice_code import ChoiceCode
 from typing import Iterator
 
+
 class ChoiceCodeSet:
     """A set of unique ChoiceCode objects."""
 
@@ -29,7 +30,9 @@ class ChoiceCodeSet:
             DuplicateChoiceError: If the ChoiceCode is already in the set.
         """
         if code in self._codes:
-            raise DuplicateChoiceError(f"Choice code {code.code} is already in the set.")
+            raise DuplicateChoiceError(
+                f"Choice code {code.code} is already in the set."
+            )
         self._codes.add(code)
 
     def has(self, code: ChoiceCode) -> bool:

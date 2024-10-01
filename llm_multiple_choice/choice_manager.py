@@ -4,6 +4,7 @@ from .exceptions import InvalidChoiceCodeError
 from .display_format import DisplayFormat
 from typing import List
 
+
 class ChoiceManager:
     """Manages sections and choices for the multiple-choice questionnaire."""
 
@@ -77,4 +78,6 @@ class ChoiceManager:
         if format == DisplayFormat.MARKDOWN:
             return "\n\n".join(section.display(format) for section in self.sections)
         else:
-            raise NotImplementedError(f"Display format '{format.value}' is not supported.")
+            raise NotImplementedError(
+                f"Display format '{format.value}' is not supported."
+            )

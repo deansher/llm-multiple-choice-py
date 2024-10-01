@@ -1,4 +1,5 @@
 import pytest
+
 from llm_multiple_choice import (
     ChoiceManager,
     ChoiceCode,
@@ -8,6 +9,7 @@ from llm_multiple_choice import (
     DuplicateChoiceError,
     InvalidChoiceCodeError
 )
+
 
 def test_choice_manager() -> None:
     # Initialize the manager

@@ -86,7 +86,7 @@ To set up the project for development:
 
    This will install all the required packages in a virtual environment.
 
-You can either activate the virtual environment in a shell by running `poetry shell` 
+You can either activate the virtual environment in a shell by running `poetry shell`
 or run commands directly using `poetry run <command>`.
 
 ### Editing in VSCode
@@ -116,7 +116,7 @@ To add a new dependency to the project:
 - For development dependencies (e.g., testing tools):
 
   ```bash
-  poetry add --dev <package_name>
+  poetry add --group dev <package_name>
   ```
 
 This updates the `pyproject.toml` and `poetry.lock` files accordingly.
