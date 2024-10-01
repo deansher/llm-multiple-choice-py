@@ -1,15 +1,15 @@
 from typing import Any
 import pytest
 from llm_multiple_choice import (
-    MultipleChoiceManager,
+    ChoiceManager,
     ChoiceCode,
     ChoiceCodeSet,
     format_choice_codes,
 )
 
-def test_multiple_choice_manager() -> None:
+def test_choice_manager() -> None:
     # Initialize the manager
-    manager = MultipleChoiceManager()
+    manager = ChoiceManager()
 
     # Add a section with an introduction
     section = manager.add_section("Assess the sentiment of the messages.")
@@ -36,6 +36,17 @@ def test_multiple_choice_manager() -> None:
     display_content = manager.display()
     assert isinstance(display_content, dict)  # Replace dict with the actual type if different
 
+import pytest
+from llm_multiple_choice import (
+    ChoiceManager,
+    ChoiceCode,
+    ChoiceCodeSet,
+    format_choice_codes,
+    DisplayFormat,
+    DuplicateChoiceError,
+    InvalidChoiceCodeError
+)
+
 def test_choice_code_set() -> None:
     # Create a set of choice codes
     code_set = ChoiceCodeSet()
@@ -53,10 +64,43 @@ def test_choice_code_set() -> None:
     assert code_set.has(code2)
     assert code_set.has(code3)
 
-    # Check that adding an existing code does not duplicate it
-    code_set.add(code2)
+    # Check that adding an existing code raises an exception
+    with pytest.raises(DuplicateChoiceError):
+        code_set.add(code2)
+
     assert len(code_set.codes) == 3  # Should still have only 3 codes
 
     # Format the codes as a string
     formatted_codes = format_choice_codes(code_set)
     assert formatted_codes == "1, 2, 3"
+
+def test_add_duplicate_choice() -> None:
+    code_set = ChoiceCodeSet()
+    code = ChoiceCode(1)
+    code_set.add(code)
+    with pytest.raises(DuplicateChoiceError):
+        code_set.add(code)
+
+def test_invalid_choice_code() -> None:
+    manager = ChoiceManager()
+    invalid_code = ChoiceCode(999)
+    with pytest.raises(InvalidChoiceCodeError):
+        manager.validate_choice_code(invalid_code)
+
+def test_display_unsupported_format() -> None:
+    manager = ChoiceManager()
+    section = manager.add_section("Introduction")
+    with pytest.raises(NotImplementedError):
+        section.display(DisplayFormat('unsupported'))
+
+def test_display_empty_section() -> None:
+    manager = ChoiceManager()
+    section = manager.add_section("Empty Section")
+    output = section.display(DisplayFormat.MARKDOWN)
+    assert output == "### Empty Section\n\n"
+
+def test_add_choice_empty_description() -> None:
+    manager = ChoiceManager()
+    section = manager.add_section("Section")
+    with pytest.raises(ValueError):
+        section.add_choice("")
