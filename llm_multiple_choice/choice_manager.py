@@ -5,29 +5,76 @@ from .display_format import DisplayFormat
 from typing import List
 
 class ChoiceManager:
+    """Manages sections and choices for the multiple-choice questionnaire."""
+
     def __init__(self) -> None:
         self.sections: List[ChoiceSection] = []
         self.next_choice_code = 1
 
     def add_section(self, introduction: str) -> ChoiceSection:
+        """
+        Adds a new section to the questionnaire.
+
+        Args:
+            introduction (str): The introduction text for the section.
+
+        Returns:
+            ChoiceSection: The newly created section.
+        """
         section = ChoiceSection(introduction, self)
         self.sections.append(section)
         return section
 
     def get_next_choice_code(self) -> ChoiceCode:
+        """
+        Generates the next available choice code.
+
+        Returns:
+            ChoiceCode: The next available choice code.
+        """
         code = ChoiceCode(self.next_choice_code)
         self.next_choice_code += 1
         return code
 
     def is_valid_choice_code(self, code: ChoiceCode) -> bool:
+        """
+        Checks if a given choice code is valid.
+
+        Args:
+            code (ChoiceCode): The choice code to validate.
+
+        Returns:
+            bool: True if the code is valid, False otherwise.
+        """
         return 1 <= code.code < self.next_choice_code
 
     def validate_choice_code(self, code: ChoiceCode) -> None:
+        """
+        Validates a choice code and raises an exception if it's invalid.
+
+        Args:
+            code (ChoiceCode): The choice code to validate.
+
+        Raises:
+            InvalidChoiceCodeError: If the choice code is invalid.
+        """
         if not self.is_valid_choice_code(code):
             raise InvalidChoiceCodeError(f"Choice code {code.code} is invalid.")
 
     def display(self, format: DisplayFormat) -> str:
+        """
+        Displays all sections in the specified format.
+
+        Args:
+            format (DisplayFormat): The format to display the sections in.
+
+        Returns:
+            str: The formatted display of all sections.
+
+        Raises:
+            NotImplementedError: If the specified format is not supported.
+        """
         if format == DisplayFormat.MARKDOWN:
             return "\n\n".join(section.display(format) for section in self.sections)
         else:
-            raise NotImplementedError(f"Display format '{format}' is not supported.")
+            raise NotImplementedError(f"Display format '{format.value}' is not supported.")

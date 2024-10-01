@@ -1,10 +1,12 @@
-from typing import Any
 import pytest
 from llm_multiple_choice import (
     ChoiceManager,
     ChoiceCode,
     ChoiceCodeSet,
     format_choice_codes,
+    DisplayFormat,
+    DuplicateChoiceError,
+    InvalidChoiceCodeError
 )
 
 def test_choice_manager() -> None:
@@ -32,20 +34,13 @@ def test_choice_manager() -> None:
     assert code2.code == 2
     assert code3.code == 3
 
-    # Display the choices (assuming display returns a string for now)
+    # Display the choices
     display_content = manager.display(DisplayFormat.MARKDOWN)
     assert isinstance(display_content, str)
-
-import pytest
-from llm_multiple_choice import (
-    ChoiceManager,
-    ChoiceCode,
-    ChoiceCodeSet,
-    format_choice_codes,
-    DisplayFormat,
-    DuplicateChoiceError,
-    InvalidChoiceCodeError
-)
+    assert "### Assess the sentiment of the messages." in display_content
+    assert "**1**: The message expresses positive sentiment." in display_content
+    assert "**2**: The message is neutral in sentiment." in display_content
+    assert "**3**: The message expresses negative sentiment." in display_content
 
 def test_choice_code_set() -> None:
     # Create a set of choice codes
@@ -91,12 +86,12 @@ def test_display_unsupported_format() -> None:
     manager = ChoiceManager()
     section = manager.add_section("Introduction")
     with pytest.raises(NotImplementedError):
-        section.display(DisplayFormat('unsupported'))
+        manager.display(DisplayFormat('unsupported'))
 
 def test_display_empty_section() -> None:
     manager = ChoiceManager()
     section = manager.add_section("Empty Section")
-    output = section.display(DisplayFormat.MARKDOWN)
+    output = manager.display(DisplayFormat.MARKDOWN)
     assert output == "### Empty Section\n\n"
 
 def test_add_choice_empty_description() -> None:
@@ -104,3 +99,21 @@ def test_add_choice_empty_description() -> None:
     section = manager.add_section("Section")
     with pytest.raises(ValueError):
         section.add_choice("")
+
+def test_choice_code_set_iteration() -> None:
+    code_set = ChoiceCodeSet()
+    codes = [ChoiceCode(1), ChoiceCode(2), ChoiceCode(3)]
+    for code in codes:
+        code_set.add(code)
+    
+    assert set(code_set) == set(codes)
+
+def test_choice_code_set_immutability() -> None:
+    code_set = ChoiceCodeSet()
+    code_set.add(ChoiceCode(1))
+    
+    frozen_set = code_set.codes
+    assert isinstance(frozen_set, frozenset)
+    
+    with pytest.raises(AttributeError):
+        frozen_set.add(ChoiceCode(2))

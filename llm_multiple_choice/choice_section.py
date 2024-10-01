@@ -34,10 +34,22 @@ class ChoiceSection:
         return code
 
     def display(self, format: DisplayFormat) -> str:
+        """
+        Displays the section in the specified format.
+
+        Args:
+            format (DisplayFormat): The format to display the section in.
+
+        Returns:
+            str: The formatted display of the section.
+
+        Raises:
+            NotImplementedError: If the specified format is not supported.
+        """
         if format == DisplayFormat.MARKDOWN:
             markdown_output = f"### {self.introduction}\n\n"
             for choice in self.choices:
                 markdown_output += f"- **{choice.code.code}**: {choice.description}\n"
             return markdown_output
         else:
-            raise NotImplementedError(f"Display format '{format}' is not supported.")
+            raise NotImplementedError(f"Display format '{format.value}' is not supported.")
