@@ -3,6 +3,7 @@ import pytest
 from llm_multiple_choice import (
     ChoiceManager,
     ChoiceSection,
+    Choice,
     ChoiceCode,
     ChoiceCodeSet,
     DisplayFormat,
