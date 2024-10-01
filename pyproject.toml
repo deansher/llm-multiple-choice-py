@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "llm-multiple-choice"
+version = "0.1.0"
+description = "Your project description here"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "llm_multiple_choice" }]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+mypy = "^1.5.1"
+pre-commit = "^3.3.3"
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Homepage" = "https://github.com/yourusername/llm-multiple-choice"
