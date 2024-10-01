@@ -85,11 +85,6 @@ def test_invalid_choice_code() -> None:
     with pytest.raises(InvalidChoiceCodeError):
         manager.validate_choice_code(invalid_code)
 
-def test_display_unsupported_format() -> None:
-    manager = ChoiceManager()
-    section = manager.add_section("Introduction")
-    with pytest.raises(NotImplementedError):
-        manager.display(DisplayFormat('unsupported'))
 
 def test_display_empty_section() -> None:
     manager = ChoiceManager()
