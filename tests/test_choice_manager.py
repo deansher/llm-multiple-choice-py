@@ -18,7 +18,9 @@ def test_choice_manager() -> None:
     manager = ChoiceManager()
 
     # Add a section with an introduction
-    section: ChoiceSection = manager.add_section("Assess the sentiment of the messages.")
+    section: ChoiceSection = manager.add_section(
+        "Assess the sentiment of the messages."
+    )
 
     # Add choices to the section
     code1 = section.add_choice("The message expresses positive sentiment.")
