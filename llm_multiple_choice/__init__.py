@@ -1,4 +1,5 @@
-from .choices import ChoiceManager, ChoiceSection, Choice
+from .choices import ChoiceSection, Choice
+from .choice_manager import ChoiceManager
 from .choice_code import ChoiceCode, ChoiceCodeSet
 from .display_format import DisplayFormat
 from .exceptions import (
