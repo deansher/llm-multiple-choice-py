@@ -62,6 +62,26 @@ class ChoiceManager:
         if not self.is_valid_choice_code(code):
             raise InvalidChoiceCodeError(f"Choice code {code.code} is invalid.")
 
+    def prompt_for_choices(self, format: DisplayFormat) -> str:
+        """
+        Creates a prompt that displays choices and instructs how to respond.
+
+        Args:
+            format (DisplayFormat): The format to display the sections in.
+
+        Returns:
+            str: The complete prompt including choices and response instructions.
+        """
+        choices = self.display(format)
+        instructions = (
+            "\nResponse Instructions:\n"
+            "1. Respond ONLY with the numbers of your chosen options\n"
+            "2. Separate multiple choices with commas\n"
+            "3. Example valid responses: '1' or '1,3' or '2,4,6'\n"
+            "4. Do not include any other text or explanations\n"
+        )
+        return choices + instructions
+
     def display(self, format: DisplayFormat) -> str:
         """
         Displays all sections in the specified format.
