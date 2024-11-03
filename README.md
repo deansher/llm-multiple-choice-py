@@ -24,6 +24,84 @@ poetry add llm-multiple-choice
 
 ## Usage
 
+This library helps you create multiple-choice questionnaires for LLMs to fill out. Here's a basic example:
+
+```python
+from llm_multiple_choice import ChoiceManager, DisplayFormat
+
+# Create a questionnaire
+manager = ChoiceManager()
+
+# Add a section with choices
+section = manager.add_section("Assess the sentiment of the message.")
+positive = section.add_choice("The message expresses positive sentiment.")
+neutral = section.add_choice("The message is neutral in sentiment.")
+negative = section.add_choice("The message expresses negative sentiment.")
+
+# Get the prompt to send to your LLM
+prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN)
+# The prompt will look like:
+# ### Assess the sentiment of the message.
+# - **1**: The message expresses positive sentiment.
+# - **2**: The message is neutral in sentiment.
+# - **3**: The message expresses negative sentiment.
+#
+# Response Instructions:
+# - Respond ONLY with the numbers of your chosen options
+# - Separate multiple choices with commas
+# - Example valid responses: '1' or '1,3' or '2,4,6'
+# - Do not include any other text or explanations
+
+# Send the prompt to your LLM and get its response
+llm_response = "2"  # This would come from your LLM
+
+# Validate the response
+try:
+    choices = manager.validate_choices_response(llm_response)
+    if choices.has(neutral):
+        print("The message was assessed as neutral.")
+except InvalidChoicesResponseError as e:
+    print(f"The LLM's response was invalid: {e}")
+```
+
+### Creating a Questionnaire
+
+1. Create a `ChoiceManager`:
+   ```python
+   manager = ChoiceManager()
+   ```
+
+2. Add sections and choices:
+   ```python
+   section = manager.add_section("Your section introduction")
+   choice1 = section.add_choice("First choice description")
+   choice2 = section.add_choice("Second choice description")
+   ```
+
+3. Get the prompt for your LLM:
+   ```python
+   prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN)
+   ```
+
+### Processing LLM Responses
+
+The library enforces these rules for LLM responses:
+- Must contain only numbers corresponding to valid choices
+- Numbers must be separated by commas
+- Each number can only appear once
+- Cannot be empty
+
+Process the response:
+```python
+try:
+    choices = manager.validate_choices_response(llm_response)
+    # Check which choices were selected
+    if choices.has(choice1):
+        print("Choice 1 was selected")
+except InvalidChoicesResponseError as e:
+    print(f"Invalid response: {e}")
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
