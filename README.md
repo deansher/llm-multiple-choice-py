@@ -134,11 +134,12 @@ This project uses GitHub Actions for automated testing and publishing to PyPI.
 ### Making a Release
 
 1. Update version in `pyproject.toml`
-2. Create and push a new tag:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
+2. Create a new Release on GitHub:
+   - Go to the repository's Releases page
+   - Click "Create a new release"
+   - Choose "Create a new tag" and enter the version (e.g., `v0.1.0`)
+   - Add release notes describing the changes
+   - Click "Publish release"
 3. GitHub Actions will automatically:
    - Run all tests and type checking
    - Build the package
