@@ -127,6 +127,10 @@ class ChoiceManager:
         Returns:
             str: The complete prompt including choices and response instructions.
         """
+        opening = (
+            "Make choices as instructed below. Reply with just a comma-separated "
+            "list of your choices.\n\n"
+        )
         choices = self.display(format)
         instructions = (
             "\nResponse Instructions:\n"
@@ -135,7 +139,7 @@ class ChoiceManager:
             "- Example valid responses: '1' or '1,3' or '2,4,6'\n"
             "- Do not include any other text or explanations\n"
         )
-        return choices + instructions
+        return opening + choices + instructions
 
     def display(self, format: DisplayFormat) -> str:
         """
