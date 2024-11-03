@@ -4,7 +4,8 @@ A Python library for having an LLM fill out a multiple-choice questionnaire abou
 
 ## Features
 
-- Composible with any LLM provider -- this library does not call the LLM itself.
+- Composible with any LLM provider -- this library generates LLM prompts and validates responses,
+  but leaves the actual LLM calls to you.
 - Flexible questionnaire structure.
 - Simple API for using the questionnaire results in code.
 
