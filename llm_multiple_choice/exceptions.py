@@ -14,3 +14,6 @@ class InvalidChoiceCodeError(ChoiceError):
     """Raised when an invalid choice code is used."""
 
     pass
+class InvalidChoicesResponseError(Exception):
+    """Raised when a choices response string is invalid."""
+    pass

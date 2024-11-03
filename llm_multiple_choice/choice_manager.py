@@ -1,7 +1,8 @@
 from .choice_code import ChoiceCode
 from .choice_section import ChoiceSection
-from .exceptions import InvalidChoiceCodeError
+from .exceptions import InvalidChoiceCodeError, InvalidChoicesResponseError
 from .display_format import DisplayFormat
+from .choice_code_set import ChoiceCodeSet
 from typing import List
 
 
@@ -101,3 +102,41 @@ class ChoiceManager:
             raise NotImplementedError(
                 f"Display format '{format.value}' is not supported."
             )
+
+    def validate_choices_response(self, response: str) -> ChoiceCodeSet:
+        """
+        Validates a choices response string and returns a ChoiceCodeSet.
+
+        Args:
+            response (str): The response string containing comma-separated choice numbers.
+
+        Returns:
+            ChoiceCodeSet: A set containing the validated choice codes.
+
+        Raises:
+            InvalidChoicesResponseError: If the response format is invalid.
+            InvalidChoiceCodeError: If any choice code is invalid.
+            DuplicateChoiceError: If there are duplicate choices.
+        """
+        # Strip whitespace and check for empty response
+        cleaned = response.strip()
+        if not cleaned:
+            raise InvalidChoicesResponseError("Response cannot be empty")
+
+        # Split on commas and validate format
+        try:
+            # Convert to integers, removing any whitespace around numbers
+            numbers = [int(num.strip()) for num in cleaned.split(',')]
+        except ValueError:
+            raise InvalidChoicesResponseError(
+                "Response must contain only numbers separated by commas"
+            )
+
+        # Convert to choice codes and validate
+        choice_set = ChoiceCodeSet()
+        for num in numbers:
+            code = ChoiceCode(num)
+            self.validate_choice_code(code)  # May raise InvalidChoiceCodeError
+            choice_set.add(code)  # May raise DuplicateChoiceError
+
+        return choice_set
