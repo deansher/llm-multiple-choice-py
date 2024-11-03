@@ -1,7 +1,7 @@
 import pytest
 
 from llm_multiple_choice import (
-    ChoiceCode, 
+    ChoiceCode,
     ChoiceCodeSet,
     ChoiceManager,
     ChoiceSection,
