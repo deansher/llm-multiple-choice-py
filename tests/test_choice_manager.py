@@ -123,3 +123,71 @@ def test_choice_code_set_immutability() -> None:
     with pytest.raises(AttributeError):
         # Since 'add' is not an attribute of frozenset, trying to access it will raise AttributeError
         getattr(frozen_set, "add")(ChoiceCode(2))
+
+
+def test_prompt_for_choices() -> None:
+    # Initialize manager with a section and choices
+    manager = ChoiceManager()
+    section = manager.add_section("Test Section")
+    section.add_choice("Choice 1")
+    section.add_choice("Choice 2")
+
+    # Get prompt content
+    prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN)
+
+    # Verify display content is included
+    assert "### Test Section" in prompt
+    assert "**1**: Choice 1" in prompt
+    assert "**2**: Choice 2" in prompt
+
+    # Verify instructions are included
+    assert "Response Instructions:" in prompt
+    assert "Respond ONLY with the numbers" in prompt
+    assert "Separate multiple choices with commas" in prompt
+    assert "Example valid responses:" in prompt
+
+
+def test_validate_choices_response_valid() -> None:
+    manager = ChoiceManager()
+    section = manager.add_section("Test Section")
+    section.add_choice("Choice 1")
+    section.add_choice("Choice 2")
+    section.add_choice("Choice 3")
+
+    # Test single choice
+    choice_set = manager.validate_choices_response("2")
+    assert len(choice_set.codes) == 1
+    assert ChoiceCode(2) in choice_set
+
+    # Test multiple choices
+    choice_set = manager.validate_choices_response("1,3")
+    assert len(choice_set.codes) == 2
+    assert ChoiceCode(1) in choice_set
+    assert ChoiceCode(3) in choice_set
+
+
+def test_validate_choices_response_errors() -> None:
+    manager = ChoiceManager()
+    section = manager.add_section("Test Section")
+    section.add_choice("Choice 1")
+    section.add_choice("Choice 2")
+
+    # Test empty response
+    with pytest.raises(InvalidChoicesResponseError) as exc_info:
+        manager.validate_choices_response("")
+    assert "Response cannot be empty" in str(exc_info.value)
+
+    # Test non-numeric input
+    with pytest.raises(InvalidChoicesResponseError) as exc_info:
+        manager.validate_choices_response("1,a,3")
+    assert "Response must contain only numbers" in str(exc_info.value)
+
+    # Test invalid choice numbers
+    with pytest.raises(InvalidChoicesResponseError) as exc_info:
+        manager.validate_choices_response("1,99")
+    assert "Choice 99 is not a valid option" in str(exc_info.value)
+
+    # Test duplicate choices
+    with pytest.raises(InvalidChoicesResponseError) as exc_info:
+        manager.validate_choices_response("1,1,2")
+    assert "Choice 1 is duplicated" in str(exc_info.value)
