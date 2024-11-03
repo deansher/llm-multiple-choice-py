@@ -114,29 +114,50 @@ class ChoiceManager:
             ChoiceCodeSet: A set containing the validated choice codes.
 
         Raises:
-            InvalidChoicesResponseError: If the response format is invalid.
-            InvalidChoiceCodeError: If any choice code is invalid.
-            DuplicateChoiceError: If there are duplicate choices.
+            InvalidChoicesResponseError: If any validation checks fail. The error message
+                will contain a complete list of all validation problems found.
         """
-        # Strip whitespace and check for empty response
+        errors = []
+        choice_set = ChoiceCodeSet()
+        
+        # Check for empty response
         cleaned = response.strip()
         if not cleaned:
+            errors.append("Response cannot be empty")
             raise InvalidChoicesResponseError("Response cannot be empty")
 
-        # Split on commas and validate format
+        # Parse and validate number format
         try:
-            # Convert to integers, removing any whitespace around numbers
             numbers = [int(num.strip()) for num in cleaned.split(',')]
         except ValueError:
+            errors.append("Response must contain only numbers separated by commas")
+            raise InvalidChoicesResponseError(errors[0])
+
+        # Track seen numbers to detect duplicates
+        seen_numbers = set()
+        
+        # Validate each number
+        for num in numbers:
+            # Check for duplicates
+            if num in seen_numbers:
+                errors.append(f"Choice {num} is duplicated")
+            seen_numbers.add(num)
+            
+            # Validate choice code
+            code = ChoiceCode(num)
+            if not self.is_valid_choice_code(code):
+                errors.append(f"Choice {num} is not a valid option")
+                continue
+
+        # If any errors occurred, raise with consolidated message
+        if errors:
+            error_msg = "\n".join([f"- {err}" for err in errors])
             raise InvalidChoicesResponseError(
-                "Response must contain only numbers separated by commas"
+                f"Invalid response. The following problems were found:\n{error_msg}"
             )
 
-        # Convert to choice codes and validate
-        choice_set = ChoiceCodeSet()
+        # Only create the final set if all validation passed
         for num in numbers:
-            code = ChoiceCode(num)
-            self.validate_choice_code(code)  # May raise InvalidChoiceCodeError
-            choice_set.add(code)  # May raise DuplicateChoiceError
+            choice_set.add(ChoiceCode(num))
 
         return choice_set
