@@ -1,8 +1,7 @@
-from .choice_code import ChoiceCode
+from .choice_code import ChoiceCode, ChoiceCodeSet
 from .choice_section import ChoiceSection
 from .exceptions import InvalidChoiceCodeError, InvalidChoicesResponseError
 from .display_format import DisplayFormat
-from .choice_code_set import ChoiceCodeSet
 from typing import List
 
 
@@ -120,7 +119,7 @@ class ChoiceManager:
         """
         errors = []
         choice_set = ChoiceCodeSet()
-        
+
         # Check for empty response
         cleaned = response.strip()
         if not cleaned:
@@ -129,21 +128,21 @@ class ChoiceManager:
 
         # Parse and validate number format
         try:
-            numbers = [int(num.strip()) for num in cleaned.split(',')]
+            numbers = [int(num.strip()) for num in cleaned.split(",")]
         except ValueError:
             errors.append("Response must contain only numbers separated by commas")
             raise InvalidChoicesResponseError(errors[0])
 
         # Track seen numbers to detect duplicates
         seen_numbers = set()
-        
+
         # Validate each number
         for num in numbers:
             # Check for duplicates
             if num in seen_numbers:
                 errors.append(f"Choice {num} is duplicated")
             seen_numbers.add(num)
-            
+
             # Validate choice code
             code = ChoiceCode(num)
             if not self.is_valid_choice_code(code):
