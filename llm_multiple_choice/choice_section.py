@@ -1,17 +1,16 @@
+from typing import List
 from .choice_code import ChoiceCode
 from .display_format import DisplayFormat
-from typing import List
-from .choice_manager import ChoiceManager
 
 
 class Choice:
-    def __init__(self, code: ChoiceCode, description: str):
+    def __init__(self, code: ChoiceCode, description: str) -> None:
         self.code = code
         self.description = description
 
 
 class ChoiceSection:
-    def __init__(self, introduction: str, manager: "ChoiceManager"):
+    def __init__(self, introduction: str, manager: "ChoiceManager") -> None:
         self.introduction = introduction
         self.manager = manager
         self.choices: List[Choice] = []
@@ -49,41 +48,6 @@ class ChoiceSection:
         Raises:
             NotImplementedError: If the specified format is not supported.
         """
-        if format == DisplayFormat.MARKDOWN:
-            markdown_output = f"### {self.introduction}\n\n"
-            for choice in self.choices:
-                markdown_output += f"- **{choice.code.code}**: {choice.description}\n"
-            return markdown_output
-        else:
-            raise NotImplementedError(
-                f"Display format '{format.value}' is not supported."
-            )
-from typing import List
-from .choice_code import ChoiceCode
-from .display_format import DisplayFormat
-
-
-class Choice:
-    def __init__(self, code: ChoiceCode, description: str) -> None:
-        self.code = code
-        self.description = description
-
-
-class ChoiceSection:
-    def __init__(self, introduction: str, manager: "ChoiceManager") -> None:
-        self.introduction = introduction
-        self.manager = manager
-        self.choices: List[Choice] = []
-
-    def add_choice(self, description: str) -> ChoiceCode:
-        if not description.strip():
-            raise ValueError("Choice description cannot be empty.")
-        code = self.manager.get_next_choice_code()
-        choice = Choice(code, description)
-        self.choices.append(choice)
-        return code
-
-    def display(self, format: DisplayFormat) -> str:
         if format == DisplayFormat.MARKDOWN:
             markdown_output = f"### {self.introduction}\n\n"
             for choice in self.choices:
