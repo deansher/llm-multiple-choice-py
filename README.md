@@ -126,6 +126,35 @@ To add a new dependency to the project:
 
 This updates the `pyproject.toml` and `poetry.lock` files accordingly.
 
+## Release Process
+
+This project uses GitHub Actions for automated testing and publishing to PyPI.
+
+### Making a Release
+
+1. Update version in `pyproject.toml`
+2. Create and push a new tag:
+   ```bash
+   git tag v0.1.0
+   git push origin v0.1.0
+   ```
+3. GitHub Actions will automatically:
+   - Run all tests and type checking
+   - Build the package
+   - Publish to PyPI if all checks pass
+
+### Manual Publishing
+
+If needed, you can publish manually using the build script:
+
+```bash
+# Publish to TestPyPI
+./scripts/build_and_publish.sh
+
+# Publish to production PyPI
+./scripts/build_and_publish.sh --production
+```
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
