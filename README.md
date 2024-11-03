@@ -24,40 +24,6 @@ poetry add llm-multiple-choice
 
 ## Usage
 
-Here's a basic example of how to use the library:
-
-```python
-from llm_multiple_choice import ChatAnalyzer
-
-# Initialize the analyzer
-analyzer = ChatAnalyzer()
-
-# Load a chat conversation
-chat = [
-    {"role": "system" , "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello, how are you?"},
-    {"role": "assistant", "content": "I'm doing well, thank you! How can I assist you today?"},
-    {"role": "user", "content": "I'd like to know more about Python programming."},
-]
-
-# Define a multiple-choice question
-
-# Define a multiple-choice question
-question = {
-    "prompt": "What is the sentiment of the user's last message?",
-    "choices": {
-        "A": "Positive",
-        "B": "Neutral",
-        "C": "Negative"
-    }
-}
-
-# Get the answer
-answer = analyzer.analyze(chat, question)
-
-print(f"The user's last message sentiment is: {answer}")
-```
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
