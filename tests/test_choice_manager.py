@@ -8,6 +8,7 @@ from llm_multiple_choice import (
     DisplayFormat,
     DuplicateChoiceError,
     InvalidChoiceCodeError,
+    InvalidChoicesResponseError,
     format_choice_codes,
 )
 
