@@ -1,6 +1,8 @@
 import pytest
 
 from llm_multiple_choice import (
+    ChoiceCode, 
+    ChoiceCodeSet,
     ChoiceManager,
     ChoiceSection,
     DisplayFormat,
@@ -8,7 +10,6 @@ from llm_multiple_choice import (
     InvalidChoiceCodeError,
     format_choice_codes,
 )
-from llm_multiple_choice.choice_code import ChoiceCode, ChoiceCodeSet
 
 
 def test_choice_manager() -> None:
@@ -16,7 +17,7 @@ def test_choice_manager() -> None:
     manager = ChoiceManager()
 
     # Add a section with an introduction
-    section = manager.add_section("Assess the sentiment of the messages.")
+    section: ChoiceSection = manager.add_section("Assess the sentiment of the messages.")
 
     # Add choices to the section
     code1 = section.add_choice("The message expresses positive sentiment.")
