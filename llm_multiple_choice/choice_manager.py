@@ -75,10 +75,10 @@ class ChoiceManager:
         choices = self.display(format)
         instructions = (
             "\nResponse Instructions:\n"
-            "1. Respond ONLY with the numbers of your chosen options\n"
-            "2. Separate multiple choices with commas\n"
-            "3. Example valid responses: '1' or '1,3' or '2,4,6'\n"
-            "4. Do not include any other text or explanations\n"
+            "- Respond ONLY with the numbers of your chosen options\n"
+            "- Separate multiple choices with commas\n"
+            "- Example valid responses: '1' or '1,3' or '2,4,6'\n"
+            "- Do not include any other text or explanations\n"
         )
         return choices + instructions
 
