@@ -1,6 +1,6 @@
 from typing import List
 
-from .choice_code import ChoiceCode, ChoiceCodeSet
+from .choice_code import ChoiceCode
 from .display_format import DisplayFormat
 from .exceptions import InvalidChoiceCodeError, InvalidChoicesResponseError
 
