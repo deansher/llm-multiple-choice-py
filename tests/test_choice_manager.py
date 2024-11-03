@@ -138,6 +138,10 @@ def test_prompt_for_choices() -> None:
     # Get prompt content
     prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN)
 
+    # Verify opening instruction is included
+    assert "Make choices as instructed below" in prompt
+    assert "Reply with just a comma-separated list of your choices" in prompt
+
     # Verify display content is included
     assert "### Test Section" in prompt
     assert "**1**: Choice 1" in prompt
