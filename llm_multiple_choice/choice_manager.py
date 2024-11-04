@@ -12,6 +12,17 @@ class Choice:
 
 class ChoiceSection:
     def __init__(self, introduction: str, manager: "ChoiceManager") -> None:
+        """
+        Initialize a section of related choices with an introduction text.
+
+        A ChoiceSection represents a group of related choices that are presented together,
+        managed by a ChoiceManager. The section starts with no choices - they must be
+        added using add_choice().
+
+        Args:
+            introduction (str): The text that introduces and explains this section of choices
+            manager (ChoiceManager): The ChoiceManager instance that manages this section
+        """
         self.introduction = introduction
         self.manager = manager
         self.choices: List[Choice] = []
