@@ -167,19 +167,19 @@ Poetry's path dependency feature makes local development straightforward:
 
 1. Clone this repository alongside your project:
    ```bash
-   git clone https://github.com/deansher/llm-multiple-choice.git
+   git clone https://github.com/deansher/llm-multiple-choice-py.git
    ```
 
 2. In your project's `pyproject.toml`, replace the PyPI dependency with a path dependency:
    ```toml
    [tool.poetry.dependencies]
-   llm-multiple-choice = { path = "../llm-multiple-choice", develop = true }
+   llm-multiple-choice = { path = "../llm-multiple-choice-py", develop = true }
    ```
 
    Or use the Poetry CLI:
    ```bash
    poetry remove llm-multiple-choice
-   poetry add --editable ../llm-multiple-choice
+   poetry add --editable ../llm-multiple-choice-py
    ```
 
 The `develop = true` flag creates a symlink to the library's source, allowing you to modify the library code and immediately see the effects in your project without reinstalling.
@@ -190,12 +190,12 @@ If you're using pip, you can use its editable install feature:
 
 1. Clone this repository alongside your project:
    ```bash
-   git clone https://github.com/deansher/llm-multiple-choice.git
+   git clone https://github.com/deansher/llm-multiple-choice-py.git
    ```
 
 2. Install the package in editable mode:
    ```bash
-   pip install -e ../llm-multiple-choice
+   pip install -e ../llm-multiple-choice-py
    ```
 
 The `-e` flag tells pip to install the package in "editable" mode, creating a link to the source code instead of copying it. This allows you to modify the library code and see changes immediately without reinstalling.
