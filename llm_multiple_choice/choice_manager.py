@@ -85,7 +85,9 @@ class ChoiceManager:
         Adds a new section to the questionnaire.
 
         Args:
-            introduction (str): The introduction text for the section.
+            introduction (str): The text that introduces and explains this section of choices.
+                Write this as though for a human who is filling out a questionnaire. For example,
+                you may say something like "Choose up to three of the following options that best ..."
 
         Returns:
             ChoiceSection: The newly created section.
@@ -130,32 +132,35 @@ class ChoiceManager:
         if not self.is_valid_choice_code(code):
             raise InvalidChoiceCodeError(f"Choice code {code.code} is invalid.")
 
-    def prompt_for_choices(self, format: DisplayFormat) -> str:
+    def prompt_for_choices(self, format: DisplayFormat, introduction: str) -> str:
         """
         Creates a prompt that displays the questionnaire and instructions the model how
         to respond with a list of choices. The prompt opens with a terse, vanilla instruction 
-        like "Make choices as instructed below." It is usually best to add your own preface
-        that gives application-specific context for the choices.
+        like "Make choices as instructed below."
 
         Args:
             format (DisplayFormat): The format to display the sections in.
+            introduction (str): The text that introduces and explains the questionnaire.
+                Write this as though for a human who will fill it out. For example,
+                you may say something like "Analyze the situation in this chat by filling
+                out the following questionnaire."
 
         Returns:
             str: The complete prompt including choices and response instructions.
         """
         opening = (
             "Make choices as instructed below. Reply with just a comma-separated "
-            "list of the integer codes for your choices.\n\n"
+            "list of the integer codes for your choices.\n"
         )
         choices = self.display(format)
         instructions = (
             "\nResponse Instructions:\n"
-            "- Respond ONLY with the numbers of your chosen options\n"
-            "- Separate multiple choices with commas\n"
-            "- Example valid responses: '1' or '1,3' or '2,4,6'\n"
-            "- Do not include any other text or explanations\n"
+            "- Respond ONLY with the numbers of your chosen options.\n"
+            "- Separate multiple choices with commas.\n"
+            "- Example valid responses: '1' or '1,3' or '2,4,6' (without the quotes).\n"
+            "- Do not include any other text or punctuation.\n"
         )
-        return opening + choices + instructions
+        return introduction + "\n" + opening + choices + instructions
 
     def display(self, format: DisplayFormat) -> str:
         """
