@@ -135,8 +135,14 @@ def test_prompt_for_choices() -> None:
     section.add_choice("Choice 1")
     section.add_choice("Choice 2")
 
+    # Define introduction text
+    intro = "Please analyze the following options carefully."
+
     # Get prompt content
-    prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN)
+    prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN, intro)
+
+    # Verify introduction is included
+    assert intro in prompt
 
     # Verify opening instruction is included
     assert "Make choices as instructed below" in prompt
