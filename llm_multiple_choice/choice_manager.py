@@ -119,7 +119,10 @@ class ChoiceManager:
 
     def prompt_for_choices(self, format: DisplayFormat) -> str:
         """
-        Creates a prompt that displays choices and instructs how to respond.
+        Creates a prompt that displays the questionnaire and instructions the model how
+        to respond with a list of choices. The prompt opens with a terse, vanilla instruction 
+        like "Make choices as instructed below." It is usually best to add your own preface
+        that gives application-specific context for the choices.
 
         Args:
             format (DisplayFormat): The format to display the sections in.
@@ -129,7 +132,7 @@ class ChoiceManager:
         """
         opening = (
             "Make choices as instructed below. Reply with just a comma-separated "
-            "list of your choices.\n\n"
+            "list of the integer codes for your choices.\n\n"
         )
         choices = self.display(format)
         instructions = (
