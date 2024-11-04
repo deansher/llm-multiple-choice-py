@@ -23,31 +23,6 @@ If you're using Poetry:
 poetry add llm-multiple-choice
 ```
 
-## Local Development Integration
-
-When developing applications that use this library, you may want to test changes to the library without publishing them to PyPI. Poetry's path dependencies feature makes this easy.
-
-### Using Path Dependencies
-
-1. Clone this repository alongside your project:
-   ```bash
-   git clone https://github.com/deansher/llm-multiple-choice.git
-   ```
-
-2. In your project's `pyproject.toml`, replace the PyPI dependency with a path dependency:
-   ```toml
-   [tool.poetry.dependencies]
-   llm-multiple-choice = { path = "../llm-multiple-choice", develop = true }
-   ```
-
-   Or use the Poetry CLI:
-   ```bash
-   poetry remove llm-multiple-choice
-   poetry add --editable ../llm-multiple-choice
-   ```
-
-The `develop = true` flag creates a symlink to the library's source, allowing you to modify the library code and immediately see the effects in your project without reinstalling.
-
 ## Usage
 
 This library helps you create multiple-choice questionnaires for LLMs to fill out.
@@ -181,6 +156,30 @@ If needed, you can publish manually using the build script:
 # Publish to production PyPI
 ./scripts/build_and_publish.sh --production
 ```
+
+### Local Development Integration
+
+When developing applications that use this library, you may want to test changes to the library without publishing them to PyPI. If your client application uses Poetry, then Poetry's path dependency feature makes this easy.
+
+1. Clone this repository alongside your project:
+   ```bash
+   git clone https://github.com/deansher/llm-multiple-choice.git
+   ```
+
+2. In your project's `pyproject.toml`, replace the PyPI dependency with a path dependency:
+   ```toml
+   [tool.poetry.dependencies]
+   llm-multiple-choice = { path = "../llm-multiple-choice", develop = true }
+   ```
+
+   Or use the Poetry CLI:
+   ```bash
+   poetry remove llm-multiple-choice
+   poetry add --editable ../llm-multiple-choice
+   ```
+
+The `develop = true` flag creates a symlink to the library's source, allowing you to modify the library code and immediately see the effects in your project without reinstalling.
+
 
 ## License
 
