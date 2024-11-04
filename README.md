@@ -159,7 +159,11 @@ If needed, you can publish manually using the build script:
 
 ### Local Development Integration
 
-When developing applications that use this library, you may want to test changes to the library without publishing them to PyPI. If your client application uses Poetry, then Poetry's path dependency feature makes this easy.
+When developing applications that use this library, you may want to test changes to the library without publishing them to PyPI. You can achieve this using either Poetry or pip's editable install feature.
+
+#### Using Poetry
+
+Poetry's path dependency feature makes local development straightforward:
 
 1. Clone this repository alongside your project:
    ```bash
@@ -179,6 +183,22 @@ When developing applications that use this library, you may want to test changes
    ```
 
 The `develop = true` flag creates a symlink to the library's source, allowing you to modify the library code and immediately see the effects in your project without reinstalling.
+
+#### Using pip
+
+If you're using pip, you can use its editable install feature:
+
+1. Clone this repository alongside your project:
+   ```bash
+   git clone https://github.com/deansher/llm-multiple-choice.git
+   ```
+
+2. Install the package in editable mode:
+   ```bash
+   pip install -e ../llm-multiple-choice
+   ```
+
+The `-e` flag tells pip to install the package in "editable" mode, creating a link to the source code instead of copying it. This allows you to modify the library code and see changes immediately without reinstalling.
 
 
 ## License
