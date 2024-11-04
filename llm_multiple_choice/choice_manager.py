@@ -20,7 +20,9 @@ class ChoiceSection:
         added using add_choice().
 
         Args:
-            introduction (str): The text that introduces and explains this section of choices
+            introduction (str): The text that introduces and explains this section of choices.
+                Write this as though for a human who is filling out a questionnaire. For example,
+                you may say something like "Choose up to three of the following options that best ..."
             manager (ChoiceManager): The ChoiceManager instance that manages this section
         """
         self.introduction = introduction
