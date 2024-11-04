@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "llm-multiple-choice"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Python library for using Large Language Models (LLMs) to fill out multiple-choice questionnaires about chat conversations."
 authors = ["Dean Thompson <deansherthompson@gmail.com>"]
 license = "MIT"
