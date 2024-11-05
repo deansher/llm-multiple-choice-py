@@ -37,9 +37,9 @@ manager = ChoiceManager()
 
 # Add a section with choices
 section = manager.add_section("Assess the sentiment of the message.")
-positive = section.add_choice("The message expresses positive sentiment.")
-neutral = section.add_choice("The message is neutral in sentiment.")
-negative = section.add_choice("The message expresses negative sentiment.")
+positive_sentiment = section.add_choice("The message expresses positive sentiment.")
+neutral_sentiment = section.add_choice("The message is neutral in sentiment.")
+negative_sentiment = section.add_choice("The message expresses negative sentiment.")
 
 # Get the prompt to send to your LLM
 prompt = manager.prompt_for_choices(DisplayFormat.MARKDOWN)
@@ -58,7 +58,7 @@ Process the response:
 try:
     choices = manager.validate_choices_response(llm_response)
     # Check which choices were selected
-    if choices.has(choice1):
+    if choices.has(positive_sentiment):
         print("Choice 1 was selected")
 except InvalidChoicesResponseError as e:
     print(f"Invalid response: {e}")
