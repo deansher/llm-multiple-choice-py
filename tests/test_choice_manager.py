@@ -146,7 +146,10 @@ def test_prompt_for_choices() -> None:
 
     # Verify opening instruction is included
     assert "Make choices as instructed below" in prompt
-    assert "Reply with just a comma-separated list of the integer codes for your choices" in prompt
+    assert (
+        "Reply with just a comma-separated list of the integer codes for your choices"
+        in prompt
+    )
 
     # Verify display content is included
     assert "### Test Section" in prompt

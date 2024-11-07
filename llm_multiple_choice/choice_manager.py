@@ -135,7 +135,7 @@ class ChoiceManager:
     def prompt_for_choices(self, format: DisplayFormat, introduction: str) -> str:
         """
         Creates a prompt that displays the questionnaire and instructions the model how
-        to respond with a list of choices. The prompt opens with a terse, vanilla instruction 
+        to respond with a list of choices. The prompt opens with a terse, vanilla instruction
         like "Make choices as instructed below."
 
         Args:
