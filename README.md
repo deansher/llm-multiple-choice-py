@@ -117,6 +117,55 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 You can either activate the virtual environment in your shell by running `poetry shell`, or run commands directly using `poetry run <command>`.
 
+### Setting Up Pre-commit Hooks
+
+After installing dependencies, set up pre-commit hooks:
+```bash
+poetry shell
+pre-commit install
+```
+
+This ensures code quality checks run automatically before each commit.
+
+### Setting Up VS Code
+
+To ensure VS Code works correctly with this project:
+
+1. Open the Command Palette (Cmd+Shift+P on Mac, Ctrl+Shift+P on Windows/Linux)
+2. Select "Python: Select Interpreter"
+3. Get your Poetry environment's Python path:
+   ```bash
+   poetry run which python
+   ```
+4. Click "Enter interpreter path..." (option with folder icon)
+5. In the text field that appears labeled "Enter path to a Python interpreter", paste your Poetry environment's Python path
+6. Press Enter to confirm
+
+If VS Code doesn't recognize your virtual environment after setting it up, try closing and reopening VS Code.
+
+### Running Tests
+
+Run the test suite using pytest:
+```bash
+poetry run pytest
+```
+
+### Adding Dependencies
+
+To add a new dependency to the project:
+
+- For regular dependencies:
+   ```bash
+   poetry add <package_name>
+   ```
+
+- For development dependencies (e.g., testing tools):
+   ```bash
+   poetry add --group dev <package_name>
+   ```
+
+This updates the `pyproject.toml` and `poetry.lock` files accordingly.
+
 ### Troubleshooting
 
 If you encounter issues:
@@ -139,44 +188,6 @@ If you encounter issues:
    poetry env use python3.13
    poetry install
    ```
-
-### Editing in VSCode
-
-To ensure VSCode uses the correct Python interpreter from the Poetry environment:
-
-1. Open the Command Palette (Cmd+Shift+P on Mac, Ctrl+Shift+P on Windows/Linux)
-2. Select "Python: Select Interpreter"
-3. Get your Poetry environment's Python path:
-   ```bash
-   poetry run which python
-   ```
-4. Click "Enter interpreter path..." (option with folder icon)
-5. In the text field that appears labeled "Enter path to a Python interpreter", paste your Poetry environment's Python path
-6. Press Enter to confirm
-
-If the virtual environment doesn't appear after setting it up, try reloading VS Code.
-
-### Running Tests
-
-`poetry run pytest`
-
-### Adding Dependencies
-
-To add a new dependency to the project:
-
-- For regular dependencies:
-
-  ```bash
-  poetry add <package_name>
-  ```
-
-- For development dependencies (e.g., testing tools):
-
-  ```bash
-  poetry add --group dev <package_name>
-  ```
-
-This updates the `pyproject.toml` and `poetry.lock` files accordingly.
 
 ## Release Process
 
