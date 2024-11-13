@@ -1,5 +1,9 @@
 # LLM Multiple Choice
 
+[![Python Versions](https://img.shields.io/pypi/pyversions/llm-multiple-choice.svg)](https://pypi.org/project/llm-multiple-choice/)
+[![PyPI version](https://badge.fury.io/py/llm-multiple-choice.svg)](https://badge.fury.io/py/llm-multiple-choice)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A Python library for having an LLM fill out a multiple-choice questionnaire about the current state of a chat.
 
 ## Features
@@ -10,6 +14,8 @@ A Python library for having an LLM fill out a multiple-choice questionnaire abou
 - Simple API for using the questionnaire results in code.
 
 ## Installation
+
+Requires Python 3.12 or later.
 
 You can install the library using pip:
 
@@ -70,40 +76,85 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### Setting Up for Development
 
-To set up the project for development:
-
-1. **Clone the repository**:
-
+1. **Ensure you have Python 3.12 or later**:
    ```bash
-   git clone https://github.com/deansher/llm-multiple-choice.git
+   # On macOS with Homebrew
+   brew install python@3.13  # or python@3.12
    ```
 
-2. **Navigate to the project directory**:
-
+2. **Install Poetry**:
    ```bash
+   # On macOS with Homebrew
+   brew install poetry
+
+   # Verify installation
+   poetry --version
+   ```
+
+3. **Clone the repository**:
+   ```bash
+   git clone https://github.com/deansher/llm-multiple-choice.git
    cd llm-multiple-choice
    ```
 
-3. **Install dependencies using Poetry**:
-
+4. **Create a virtual environment and install dependencies**:
    ```bash
+   # Ensure poetry uses the correct Python version
+   poetry env use python3.13  # or python3.12
+
+   # Create venv and install all dependencies
    poetry install
    ```
 
-   This will install all the required packages in a virtual environment.
+5. **Verify your setup**:
+   ```bash
+   # Check Python version
+   poetry run python --version  # Should show 3.13.x
 
-You can either activate the virtual environment in a shell by running `poetry shell`
-or run commands directly using `poetry run <command>`.
+   # Run tests to ensure everything works
+   poetry run pytest
+   ```
+
+You can either activate the virtual environment in your shell by running `poetry shell`, or run commands directly using `poetry run <command>`.
+
+### Troubleshooting
+
+If you encounter issues:
+
+1. **Wrong Python version**:
+   ```bash
+   # Verify Python version
+   python --version
+
+   # If needed, explicitly use Python 3.13
+   poetry env use python3.13
+   ```
+
+2. **Poetry environment issues**:
+   ```bash
+   # Remove existing environment
+   poetry env remove python
+
+   # Create fresh environment
+   poetry env use python3.13
+   poetry install
+   ```
 
 ### Editing in VSCode
 
 To ensure VSCode uses the correct Python interpreter from the Poetry environment:
 
-1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac).
-2. Select `Python: Select Interpreter`.
-3. Choose the interpreter that corresponds to the project's virtual environment. It should be listed with the path to `.venv`.
+1. Open the Command Palette (Cmd+Shift+P on Mac, Ctrl+Shift+P on Windows/Linux)
+2. Select "Python: Select Interpreter"
+3. Get your Poetry environment's Python path:
+   ```bash
+   poetry run which python
+   ```
+4. Click "Enter interpreter path..." (option with folder icon)
+5. In the text field that appears labeled "Enter path to a Python interpreter", paste your Poetry environment's Python path
+6. Press Enter to confirm
 
-If the virtual environment is not listed, you may need to refresh the interpreters or specify the path manually.
+If the virtual environment doesn't appear after setting it up, try reloading VS Code.
 
 ### Running Tests
 
@@ -134,13 +185,18 @@ This project uses GitHub Actions for automated testing and publishing to PyPI.
 ### Making a Release
 
 1. Update version in `pyproject.toml`
-2. Create a new Release on GitHub:
+2. Create and push a new tag:
+   ```bash
+   git tag v0.1.1
+   git push origin v0.1.1
+   ```
+3. Create a new Release on GitHub:
    - Go to the repository's Releases page
    - Click "Create a new release"
-   - Choose "Create a new tag" and enter the version (e.g., `v0.1.0`)
+   - Choose "Choose a tag" and select the tag you just created
    - Add release notes describing the changes
    - Click "Publish release"
-3. GitHub Actions will automatically:
+4. GitHub Actions will automatically:
    - Run all tests and type checking
    - Build the package
    - Publish to PyPI if all checks pass
