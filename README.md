@@ -76,10 +76,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### Setting Up for Development
 
-1. **Ensure you have Python 3.12 or later**:
+1. **Ensure you have Python 3.10 or later**:
    ```bash
    # On macOS with Homebrew
-   brew install python@3.13  # or python@3.12
+   brew install python@3.12
    ```
 
 2. **Install Poetry**:
@@ -100,7 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. **Create a virtual environment and install dependencies**:
    ```bash
    # Ensure poetry uses the correct Python version
-   poetry env use python3.13  # or python3.12
+   poetry env use python3.12
 
    # Create venv and install all dependencies
    poetry install
@@ -198,8 +198,8 @@ This project uses GitHub Actions for automated testing and publishing to PyPI.
 1. Update version in `pyproject.toml`
 2. Create and push a new tag:
    ```bash
-   git tag v0.1.1
-   git push origin v0.1.1
+   git tag v0.0.0
+   git push origin v0.0.0
    ```
 3. Create a new Release on GitHub:
    - Go to the repository's Releases page
