@@ -195,7 +195,9 @@ class ChoiceManager:
         Raises:
             InvalidChoicesResponseError: If any validation checks fail. The error message
                 will contain a complete list of all validation problems found. It is intended
-                to be fed back to the LLM if there is a retry.
+                to be fed back to the LLM if there is a retry. Best practice is to tell the LLM
+                what it returned (which is not included in this error message) and provide it
+                with this error message.
         """
         errors = []
         choice_set = ChoiceCodeSet()
